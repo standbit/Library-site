@@ -16,7 +16,7 @@
       <div class="row no-gutters">
         <div class="col-md-4">
           {% if book.img_src %}
-            <img src="{{ book.img_src|e }}" class="card-img" alt="{{ book.title|e }}">
+            <img src="{{ book.img_src|safe }}" class="card-img" alt="{{ book.title|e }}">
           {% else %}
             <img src="./images/nopic.gif" class="card-img" alt="{{ book.title|e }}">
           {% endif %}
@@ -25,7 +25,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ book.title|e }}</h5>
             <p class="card-author">{{ book.author|e }}</p>
-            <p class="card-text"><small class="text-muted">Обновлено 3 мин назад</small></p>
+            <p class="card-text"><small class="text-muted">Не обновляется</small></p>
           </div>
         </div>
       </div>
