@@ -11,27 +11,34 @@
     <title>Библиотека дедушки</title>
   </head>
   <body>
-    {% for book in library %}
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          {% if book.img_src %}
-            <img src="{{ book.img_src|safe }}" class="card-img" alt="{{ book.title|e }}">
-          {% else %}
-            <img src="./images/nopic.gif" class="card-img" alt="{{ book.title|e }}">
-          {% endif %}
-        </div>
-        <div class="col-md-6">
-          <div class="card-body">
-            <h5 class="card-title">{{ book.title|e }}</h5>
-            <p class="card-author">{{ book.author|e }}</p>
-            <p class="card-text"><small class="text-muted">Не обновляется</small></p>
+    <div class="container">
+      <div class ="row align-items-center">
+        {% for column in library %}
+          <div class="col-md-auto">
+            {% for book in column %}
+              <div class="card mb-3" style="max-width: 32rem;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    {% if book.img_src %}
+                      <img src="{{ book.img_src|safe }}" class="card-img" alt="{{ book.title|e }}">
+                    {% else %}
+                      <img src="./images/nopic.gif" class="card-img" alt="{{ book.title|e }}">
+                    {% endif %}
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ book.title|e }}</h5>
+                      <p class="card-author">{{ book.author|e }}</p>
+                      <p class="card-text"><small class="text-muted">Обновлено однажды</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
+        {% endfor %}
         </div>
-      </div>
-    </div>
-    {% endfor %}
-
+        </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -46,5 +53,3 @@
     -->
   </body>
 </html>
-
-
