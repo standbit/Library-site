@@ -12,24 +12,24 @@
   </head>
   <body>
     <div class="container">
-      <div class ="row align-items-center">
+      <div class ="row">
         {% for column in library %}
-          <div class="col-md-auto">
+          <div class="col">
             {% for book in column %}
-              <div class="card mb-3" style="max-width: 32rem;">
+              <div class="card mb-3" style="width: 30rem; height: 18rem">
                 <div class="row no-gutters">
-                  <div class="col-md-4">
+                  <div class="col-md-5">
                     {% if book.img_src %}
-                      <img src="{{ book.img_src|safe }}" class="card-img" alt="{{ book.title|e }}">
+                      <img src="{{ book.img_src|urlencode }}" class="card-img" alt="{{ book.title|e }}" style="height: 18rem">
                     {% else %}
-                      <img src="./images/nopic.gif" class="card-img" alt="{{ book.title|e }}">
+                      <img src="{{ no_pic }}" class="card-img" alt="{{ book.title|e }}" style="height: 18rem">
                     {% endif %}
                   </div>
                   <div class="col-md-6">
                     <div class="card-body">
                       <h5 class="card-title">{{ book.title|e }}</h5>
                       <p class="card-author">{{ book.author|e }}</p>
-                      <p class="card-text"><small class="text-muted">Обновлено однажды</small></p>
+                      <p class="card-link"><a href="{{ book.book_path|urlencode }}" target="_blank" rel="noopener noreferrer">Читать</a></p>
                     </div>
                   </div>
                 </div>
