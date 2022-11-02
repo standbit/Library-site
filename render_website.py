@@ -1,12 +1,12 @@
+from distutils.archive_util import make_archive
 import json
 import unicodedata
 from livereload import Server
 from more_itertools import chunked
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from pathlib import Path
 
-global no_picture_gif
-no_picture_gif = "./images/nopic.gif"
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 def fetch_json(json_file):
@@ -26,28 +26,32 @@ def get_html_template_env():
     return template
 
 
-def make_library_in_columns():
-    library_content = fetch_json(
-        json_file="./books_description.json")
-    col_length = len(library_content)//2 + 1
-    columned_library = list(chunked(library_content, col_length))
-    return columned_library
+def make_page_in_columns(page):
+    col_length = len(page)//2
+    columned_page = list(chunked(page, col_length))
+    return columned_page
 
 
 def on_reload():
-
-    columned_library = make_library_in_columns()
+    library_content = fetch_json(
+        json_file="./books_description.json")
+    paged_library_content = list(chunked(library_content, 10))
+    no_picture_gif = "./images/nopic.gif"
     template = get_html_template_env()
-    rendered_page = template.render(
-        library=columned_library,
-        no_pic=no_picture_gif,
-    )
-    with open("index.html", "w", encoding="utf8") as file:
-        file.write(rendered_page)
+    for num, page in enumerate(paged_library_content, 1):
+        columned_page = make_page_in_columns(page)
+        rendered_page = template.render(
+            columned_library_page=columned_page,
+            no_pic=no_picture_gif)
+        page_path = str(Path(pages_folder, f"index{num}.html"))
+        with open(page_path, "w", encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 def main():
-    
+    global pages_folder
+    pages_folder = Path("./", "pages")
+    pages_folder.mkdir(parents=True, exist_ok=True)   
     on_reload()
     server = Server()
     server.watch("template.html", on_reload)
