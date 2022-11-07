@@ -13,19 +13,19 @@
   <body>
     <div class="container" style="margin-top: 2rem">
       <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="/pages/index{{ page_num - 1 }}.html">Previous</a></li>
+          {% for num in range(1, num_of_pages + 1) %}
+            <li class="page-item"><a class="page-link" href="/pages/index{{ num }}.html">{{ num }}</a></li>
+          {% endfor %}
+          <li class="page-item"><a class="page-link" href="/pages/index{{ page_num + 1 }}.html">Next</a></li>
         </ul>
       </nav>
       <div class ="row" style="margin-top: 2rem">
         {% for column in columned_library_page %}
           <div class="col">
             {% for book in column %}
-              <div class="card mb-3" style="width: 30rem; height: 18rem">
+              <div class="card mb-3" style="width: 32rem; height: 18rem">
                 <div class="row no-gutters">
                   <div class="col-md-5">
                     {% if book.img_src %}
