@@ -11,8 +11,8 @@ from more_itertools import chunked
 def fetch_json(json_file):
     with open(json_file, "r") as library_file:
         library_json = library_file.read()
-    library_json_norm = unicodedata.normalize("NFKD", library_json)
-    library_description = json.loads(library_json_norm)
+    normalized_library_json = unicodedata.normalize("NFKD", library_json)
+    library_description = json.loads(normalized_library_json)
     return library_description
 
 
@@ -26,8 +26,7 @@ def get_html_template_env():
 
 
 def make_page_in_columns(page):
-    columns = 2
-    col_length = ceil(len(page)/columns)
+    col_length = ceil(len(page)/2)
     columned_page = list(chunked(page, col_length))
     return columned_page
 
