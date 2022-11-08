@@ -11,7 +11,7 @@
     <title>Библиотека дедушки</title>
   </head>
   <body>
-    <div class="container" style="margin-top: 2em">
+    <div class="container" style="margin-top: 2em; width: 64em">
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center" style="margin-bottom: 2em;">
           {% if page_num == 1 %}
@@ -42,11 +42,11 @@
           {% endif %}
           </ul>
       </nav>
-      <div class ="row">
+      <div class ="row" style="width: 64em">
         {% for column in columned_library_page %}
           <div class="col">
             {% for book in column %}
-              <div class="card mb-3" style="width: 32em; height: 18em;">
+              <div class="card mb-3" style="width: 30em; height: 18em;">
                 <div class="row no-gutters">
                   <div class="col-md-5">
                     {% if book.img_src %}
@@ -60,7 +60,10 @@
                       <h5 class="card-title">{{ book.title|e }}</h5>
                       <p class="card-author">{{ book.author|e }}</p>
                       <p class="card-link"><a href="../{{ book.book_path|urlencode }}" style="color: #3C53FD ; font-size: 18px" target="_blank" rel="noopener noreferrer">Читать</a></p>
-                    </div>
+                      {% for genre in book.genres %}
+                      <span class="badge badge-pill badge-light">{{ genre }}</span>
+                      {% endfor %}
+                      </div>
                   </div>
                 </div>
               </div>
