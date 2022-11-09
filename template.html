@@ -21,7 +21,7 @@
               <span class="page-link">Назад</span>
             </li>
           {% else %}
-            <li class="page-item"><a class="page-link" href="/pages/index{{ page_num - 1 }}.html">Назад</a></li>
+            <li class="page-item"><a class="page-link" href="../pages/index{{ page_num - 1 }}.html">Назад</a></li>
           {% endif %}
           {% for num in range(1, num_of_pages + 1) %}
             {% if num == page_num %}
@@ -32,7 +32,7 @@
                 </span>
               </li> 
             {% else %}
-              <li class="page-item"><a class="page-link" href="/pages/index{{ num }}.html">{{ num }}</a></li>
+              <li class="page-item"><a class="page-link" href="../pages/index{{ num }}.html">{{ num }}</a></li>
             {% endif %}
           {% endfor %}
           {% if page_num == num_of_pages%}
@@ -40,7 +40,7 @@
               <span class="page-link">Вперёд</span>
             </li>
           {% else %}
-            <li class="page-item"><a class="page-link" href="/pages/index{{ page_num + 1 }}.html">Вперёд</a></li>
+            <li class="page-item"><a class="page-link" href="../pages/index{{ page_num + 1 }}.html">Вперёд</a></li>
           {% endif %}
           </ul>
       </nav>
