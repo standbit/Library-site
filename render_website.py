@@ -8,6 +8,9 @@ from livereload import Server
 from more_itertools import chunked
 
 
+COLUMNS_ON_PAGE = 2
+BOOKS_ON_PAGE = 10
+
 def fetch_json(json_file):
 
     with open(json_file, "r") as library_file:
@@ -27,7 +30,7 @@ def get_html_template_env():
 
 def make_page_in_columns(page):
 
-    col_length = ceil(len(page)/2)
+    col_length = ceil(len(page)/COLUMNS_ON_PAGE)
     columned_page = list(chunked(page, col_length))
     return columned_page
 
@@ -36,7 +39,7 @@ def on_reload():
 
     library_content = fetch_json(
         json_file="./books_description.json")
-    paged_library_content = list(chunked(library_content, n=10))
+    paged_library_content = list(chunked(library_content, n=BOOKS_ON_PAGE))
     num_of_pages = len(paged_library_content)
     no_picture_gif = "./images/nopic.gif"
     template = get_html_template_env()
