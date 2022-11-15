@@ -11,9 +11,7 @@ from more_itertools import chunked
 def fetch_json(json_file):
 
     with open(json_file, "r") as library_file:
-        library_json = library_file.read()
-    normalized_library_json = unicodedata.normalize("NFKD", library_json)
-    library_description = json.loads(normalized_library_json)
+        library_description = json.load(library_file)
     return library_description
 
 
