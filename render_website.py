@@ -28,7 +28,7 @@ def get_html_template_env():
     return template
 
 
-def make_page_in_columns(page):
+def split_page(page):
 
     col_length = ceil(len(page)/COLUMNS_ON_PAGE)
     columned_page = list(chunked(page, col_length))
@@ -45,7 +45,7 @@ def on_reload():
     template = get_html_template_env()
 
     for num, page in enumerate(paged_library_content, start=1):
-        columned_page = make_page_in_columns(page)
+        columned_page = split_page(page)
         page_path = str(Path(pages_folder, f"index{num}.html"))
 
         rendered_page = template.render(
