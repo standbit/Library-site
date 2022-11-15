@@ -1,5 +1,4 @@
 import json
-import unicodedata
 from math import ceil
 from pathlib import Path
 
@@ -7,9 +6,10 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
 
-
 COLUMNS_ON_PAGE = 2
 BOOKS_ON_PAGE = 10
+PAGES_FOLDER = Path("./", "pages")
+
 
 def fetch_json(json_file):
 
@@ -46,7 +46,7 @@ def on_reload():
 
     for num, page in enumerate(paged_library_content, start=1):
         columned_page = split_page(page)
-        page_path = str(Path(pages_folder, f"index{num}.html"))
+        page_path = str(Path(PAGES_FOLDER, f"index{num}.html"))
 
         rendered_page = template.render(
             columned_library_page=columned_page,
@@ -58,9 +58,7 @@ def on_reload():
 
 
 def main():
-    global pages_folder
-    pages_folder = Path("./", "pages")
-    pages_folder.mkdir(parents=True, exist_ok=True)
+    PAGES_FOLDER.mkdir(parents=True, exist_ok=True)
     on_reload()
     server = Server()
     server.watch("template.html", on_reload)
